@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Set the character set for the document -->
     <meta charset="UTF-8">
+    <!-- Ensure proper rendering and touch zooming -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Responsive design for various device sizes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the HTML document -->
     <title>Document</title>
+    <!-- Link to an external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="">
     
+    <!-- Main container for the page -->
     <div class="container">
+        <!-- Header section with the shopping cart title and icon -->
         <header>
             <h1>Your Shopping Cart</h1>
             <div class="shopping">
                 <img src="images/shopping.svg">
+                <!-- Display the quantity of items in the shopping cart -->
                 <span class="quantity">0</span>
             </div>
         </header>
 
+        <!-- Container for the list of products -->
         <div class="list">
-          
+            <!-- Product items will be dynamically added here using JavaScript -->
         </div>
     </div>
+
+    <!-- Container for the shopping cart -->
     <div class="card">
+        <!-- Title of the shopping cart -->
         <h1>Card</h1>
+        <!-- List to display the items in the shopping cart -->
         <ul class="listCard">
+            <!-- Cart items will be dynamically added here using JavaScript -->
         </ul>
+        <!-- Checkout section with total price and close button -->
         <div class="checkOut">
+            <!-- Display the total price of items in the shopping cart -->
             <div class="total" id="total">0</div>
+            <!-- Button to close the shopping cart -->
             <div class="closeShopping">Close</div>
         </div>
     </div>
 
+    <!-- Link to an external JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>

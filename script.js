@@ -1,3 +1,4 @@
+// Selecting elements from the DOM
 let openShopping = document.querySelector('.shopping');
 let closeShopping = document.querySelector('.closeShopping');
 let list = document.querySelector('.list');
@@ -6,13 +7,17 @@ let body = document.querySelector('body');
 let total = document.querySelector('.total');
 let quantity = document.querySelector('.quantity');
 
-openShopping.addEventListener('click', ()=>{
+// Event listener for opening the shopping cart
+openShopping.addEventListener('click', () => {
     body.classList.add('active');
-})
-closeShopping.addEventListener('click', ()=>{
-    body.classList.remove('active');
-})
+});
 
+// Event listener for closing the shopping cart
+closeShopping.addEventListener('click', () => {
+    body.classList.remove('active');
+});
+
+// Array of product objects
 let products = [
     {
         id: 1,
@@ -24,7 +29,7 @@ let products = [
         id: 2,
         name: 'Nvidia Geforce rtx 3080 Graphics Card',
         image: 'product2.jpg',
-        price:  699
+        price: 699
     },
     {
         id: 3,
@@ -51,9 +56,14 @@ let products = [
         price: 70.99
     }
 ];
-let listCards  = [];
-function initApp(){
-    products.forEach((value, key) =>{
+
+// Array to store items in the shopping cart
+let listCards = [];
+
+// Function to initialize the application, displaying products on the page
+function initApp() {
+    products.forEach((value, key) => {
+        // Creating a new product element
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
         newDiv.innerHTML = `
@@ -62,25 +72,37 @@ function initApp(){
             <div class="price">${formatPrice(value.price)}</div>
             <button onclick="addToCard(${key})">Add To Card</button>`;
         list.appendChild(newDiv);
-    })
+    });
 }
+
+// Initializing the application
 initApp();
-function addToCard(key){
-    if(listCards[key] == null){
-        // copy product form list to list card
+
+// Function to add a product to the shopping cart
+function addToCard(key) {
+    // If the product is not in the cart, add it
+    if (listCards[key] == null) {
         listCards[key] = JSON.parse(JSON.stringify(products[key]));
         listCards[key].quantity = 1;
     }
+    // Reload the shopping cart
     reloadCard();
 }
-function reloadCard(){
+
+// Function to reload and display the shopping cart
+function reloadCard() {
+    // Clear the existing cart
     listCard.innerHTML = '';
     let count = 0;
     let totalPrice = 0;
-    listCards.forEach((value, key)=>{
+
+    // Loop through items in the cart
+    listCards.forEach((value, key) => {
         totalPrice = totalPrice + value.price;
         count = count + value.quantity;
-        if(value != null){
+
+        // Create a new cart item element
+        if (value != null) {
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="images/${value.image}"/></div>
@@ -91,24 +113,33 @@ function reloadCard(){
                     <div class="count">${value.quantity}</div>
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>`;
-                listCard.appendChild(newDiv);
+            listCard.appendChild(newDiv);
         }
     });
+
+    // Update total price and quantity
     total.innerText = formatPrice(totalPrice);
     quantity.innerText = count;
+
+    // Update the cart's total price
     updateCartPrice();
 }
 
+// Function to format the price as currency
 function formatPrice(price) {
     return `$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-function changeQuantity(key, quantity){
-    if(quantity == 0){
+// Function to change the quantity of a product in the cart
+function changeQuantity(key, quantity) {
+    // If quantity is reduced to 0, remove the item from the cart
+    if (quantity == 0) {
         delete listCards[key];
-    }else{
+    } else {
+        // Update quantity and price if changed
         listCards[key].quantity = quantity;
         listCards[key].price = quantity * products[key].price;
     }
+    // Reload the shopping cart
     reloadCard();
 }
